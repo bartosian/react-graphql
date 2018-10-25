@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+const axiosGitHubGraphQL = axios.create({
+    baseURL: 'https://api.github.com/graphql',
+});
 
 const TITLE = 'React GraphQL GitHub Client';
 
