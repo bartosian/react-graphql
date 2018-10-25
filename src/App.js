@@ -10,6 +10,15 @@ const axiosGitHubGraphQL = axios.create({
 
 const TITLE = 'React GraphQL GitHub Client';
 
+const GET_ORGANIZATION = `
+  {
+    organization(login: "the-road-to-learn-react") {
+      name
+      url
+    }
+  }
+`;
+
 class App extends Component {
     state = {
         path: 'the-road-to-learn-react/the-road-to-learn-react',
