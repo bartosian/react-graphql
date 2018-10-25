@@ -43,11 +43,16 @@ class App extends Component {
     onFetchFromGitHub = () => {
         axiosGitHubGraphQL
             .post('', { query: GET_ORGANIZATION })
-            .then(result => console.log(result));
-    };
+            .then(result =>
+                this.setState(() => ({
+                    organization: result.data.data.organization,
+                    errors: result.data.errors,
+                })),
+            );
+    }
 
     render() {
-        const { path } = this.state;
+        const { path, organization } = this.state;
 
         return (
             <div>
@@ -69,7 +74,7 @@ class App extends Component {
 
                 <hr />
 
-                {/* Here comes the result! */}
+                <Organization organization={organization} />
             </div>
         );
     }
