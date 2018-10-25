@@ -22,10 +22,12 @@ const GET_ORGANIZATION = `
 class App extends Component {
     state = {
         path: 'the-road-to-learn-react/the-road-to-learn-react',
+        organization: null,
+        errors: null,
     };
 
     componentDidMount() {
-        // fetch data
+        this.onFetchFromGitHub();
     }
 
     onChange = event => {
@@ -33,9 +35,15 @@ class App extends Component {
     };
 
     onSubmit = event => {
-        // fetch data
+        this.onFetchFromGitHub();
 
         event.preventDefault();
+    };
+
+    onFetchFromGitHub = () => {
+        axiosGitHubGraphQL
+            .post('', { query: GET_ORGANIZATION })
+            .then(result => console.log(result));
     };
 
     render() {
