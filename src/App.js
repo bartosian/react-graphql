@@ -77,7 +77,7 @@ class App extends Component {
 
     onFetchFromGitHub = () => {
         axiosGitHubGraphQL
-            .post('', { query: GET_REPOSITORY_OF_ORGANIZATION })
+            .post('', { query: GET_ISSUES_OF_REPOSITORY })
             .then(result =>
                 this.setState(() => ({
                     organization: result.data.data.organization,
@@ -148,5 +148,13 @@ const Repository = ({ repository }) => (
             <strong>In Repository:</strong>
             <a href={repository.url}>{repository.name}</a>
         </p>
+
+        <ul>
+            {repository.issues.edges.map(issue => (
+                <li key={issue.node.id}>
+                    <a href={issue.node.url}>{issue.node.title}</a>
+                </li>
+            ))}
+        </ul>
     </div>
 );
