@@ -19,6 +19,19 @@ const GET_ORGANIZATION = `
   }
 `;
 
+const GET_REPOSITORY_OF_ORGANIZATION = `
+  {
+    organization(login: "the-road-to-learn-react") {
+      name
+      url
+      repository(name: "the-road-to-learn-react") {
+        name
+        url
+      }
+    }
+  }
+`;
+
 class App extends Component {
     state = {
         path: 'the-road-to-learn-react/the-road-to-learn-react',
@@ -52,7 +65,7 @@ class App extends Component {
     }
 
     render() {
-        const { path, organization } = this.state;
+        const { path, organization, errors } = this.state;
 
         return (
             <div>
@@ -74,10 +87,34 @@ class App extends Component {
 
                 <hr />
 
-                <Organization organization={organization} />
+                {organization ? (
+                    <Organization organization={organization} errors={errors} />
+                ) : (
+                    <p>No information yet ...</p>
+                )}
             </div>
         );
     }
 }
 
 export default App;
+
+const Organization = ({ organization, errors }) => {
+    if (errors) {
+        return (
+            <p>
+                <strong>Something went wrong:</strong>
+                {errors.map(error => error.message).join(' ')}
+            </p>
+        );
+    }
+
+    return (
+        <div>
+            <p>
+                <strong>Issues from Organization:</strong>
+                <a href={organization.url}>{organization.name}</a>
+            </p>
+        </div>
+    );
+};
