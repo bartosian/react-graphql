@@ -32,12 +32,12 @@ const GET_REPOSITORY_OF_ORGANIZATION = `
   }
 `;
 
-const GET_ISSUES_OF_REPOSITORY = `
+const getIssuesOfRepositoryQuery = (organization, repository) => `
   {
-    organization(login: "the-road-to-learn-react") {
+    organization(login: "${organization}") {
       name
       url
-      repository(name: "the-road-to-learn-react") {
+      repository(name: "${repository}") {
         name
         url
         issues(last: 5) {
