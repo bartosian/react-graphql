@@ -4,7 +4,7 @@ import axios from 'axios';
 const axiosGitHubGraphQL = axios.create({
     baseURL: 'https://api.github.com/graphql',
     headers: {
-        Authorization: process.env.GITHUB_KEY,
+        Authorization: "",
     }
 });
 
@@ -40,12 +40,20 @@ const getIssuesOfRepositoryQuery = (organization, repository) => `
       repository(name: "${repository}") {
         name
         url
-        issues(last: 5) {
+        issues(last: 5, states: [OPEN]) {
           edges {
             node {
               id
               title
               url
+              reactions(last: 3) {
+                edges {
+                  node {
+                    id
+                    content
+                  }
+                }
+              }
             }
           }
         }
